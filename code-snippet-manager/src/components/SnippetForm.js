@@ -1,51 +1,64 @@
-import React, { useState } from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import React, { useState, useEffect } from "react";
+import "./SnippetForm.css";
 
-const SnippetForm = ({ addSnippet, editSnippet, currentSnippet }) => {
-  const [title, setTitle] = useState(
-    currentSnippet ? currentSnippet.title : ""
-  );
-  const [code, setCode] = useState(currentSnippet ? currentSnippet.code : "");
+const SnippetForm = ({ onSubmit, currentSnippet }) => {
+  const [title, setTitle] = useState("");
+  const [code, setCode] = useState("");
+  const [category, setCategory] = useState("");
+
+  useEffect(() => {
+    if (currentSnippet) {
+      setTitle(currentSnippet.title);
+      setCode(currentSnippet.code);
+      setCategory(currentSnippet.category);
+    }
+  }, [currentSnippet]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (currentSnippet) {
-      editSnippet({ ...currentSnippet, title, code });
-    } else {
-      addSnippet({ title, code });
-    }
+    onSubmit({ title, code, category });
     setTitle("");
     setCode("");
+    setCategory("");
   };
 
   return (
-    <Form onSubmit={handleSubmit} className="p-4 border rounded bg-light">
-      <FormGroup>
-        <Label for="title">Snippet Title</Label>
-        <Input
+    <form onSubmit={handleSubmit} className="snippet-form">
+      <div className="form-group">
+        <label htmlFor="title">Title</label>
+        <input
           type="text"
           id="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Enter snippet title"
           required
         />
-      </FormGroup>
-      <FormGroup>
-        <Label for="code">Code</Label>
-        <Input
-          type="textarea"
+      </div>
+      <div className="form-group">
+        <label htmlFor="category">Category</label>
+        <input
+          type="text"
+          id="category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          placeholder="e.g., JavaScript, Python"
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="code">Code</label>
+        <textarea
           id="code"
           value={code}
           onChange={(e) => setCode(e.target.value)}
-          placeholder="Enter your code here"
+          rows="10"
           required
         />
-      </FormGroup>
-      <Button color="primary" type="submit">
+      </div>
+      <button type="submit" className="submit-button">
         {currentSnippet ? "Update Snippet" : "Add Snippet"}
-      </Button>
-    </Form>
+      </button>
+    </form>
   );
 };
 

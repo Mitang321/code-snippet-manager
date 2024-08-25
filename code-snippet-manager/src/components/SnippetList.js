@@ -8,6 +8,11 @@ const SnippetList = ({ snippets, onEdit, onDelete }) => {
     setActiveSnippet(activeSnippet === id ? null : id);
   };
 
+  const copyToClipboard = (code) => {
+    navigator.clipboard.writeText(code);
+    alert("Code copied to clipboard!");
+  };
+
   return (
     <div className="snippet-list">
       {snippets.map((snippet) => (
@@ -17,12 +22,19 @@ const SnippetList = ({ snippets, onEdit, onDelete }) => {
             onClick={() => toggleSnippet(snippet.id)}
           >
             <h3>{snippet.title}</h3>
+            <p className="snippet-category">{snippet.category}</p>
           </div>
           {activeSnippet === snippet.id && (
             <div className="snippet-content">
               <pre>
                 <code>{snippet.code}</code>
               </pre>
+              <button
+                className="copy-button"
+                onClick={() => copyToClipboard(snippet.code)}
+              >
+                Copy
+              </button>
               <div className="snippet-actions">
                 <button onClick={() => onEdit(snippet)}>Edit</button>
                 <button onClick={() => onDelete(snippet.id)}>Delete</button>

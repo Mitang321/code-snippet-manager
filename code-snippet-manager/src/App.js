@@ -3,49 +3,49 @@ import SnippetForm from "./components/SnippetForm";
 import SnippetList from "./components/SnippetList";
 import "./App.css";
 
-const App = () => {
+function App() {
   const [snippets, setSnippets] = useState([]);
-  const [editingSnippet, setEditingSnippet] = useState(null);
+  const [currentSnippet, setCurrentSnippet] = useState(null);
 
   const addSnippet = (snippet) => {
-    setSnippets([...snippets, { ...snippet, id: Date.now() }]);
+    if (currentSnippet) {
+      setSnippets(
+        snippets.map((s) =>
+          s.id === currentSnippet.id ? { ...snippet, id: currentSnippet.id } : s
+        )
+      );
+      setCurrentSnippet(null);
+    } else {
+      setSnippets([...snippets, { ...snippet, id: Date.now() }]);
+    }
   };
 
-  const editSnippet = (updatedSnippet) => {
-    setSnippets(
-      snippets.map((snippet) =>
-        snippet.id === updatedSnippet.id ? updatedSnippet : snippet
-      )
-    );
-    setEditingSnippet(null);
+  const editSnippet = (snippet) => {
+    setCurrentSnippet(snippet);
   };
 
   const deleteSnippet = (id) => {
-    setSnippets(snippets.filter((snippet) => snippet.id !== id));
+    setSnippets(snippets.filter((s) => s.id !== id));
   };
 
   return (
     <div className="container">
       <header className="header">
         <h1>Code Snippet Manager</h1>
-        <p>Manage and organize your code snippets with ease.</p>
+        <p>Organize your code snippets efficiently.</p>
       </header>
       <div className="form-section">
-        <SnippetForm
-          addSnippet={addSnippet}
-          editSnippet={editSnippet}
-          currentSnippet={editingSnippet}
-        />
+        <SnippetForm onSubmit={addSnippet} currentSnippet={currentSnippet} />
       </div>
       <div className="list-section">
         <SnippetList
           snippets={snippets}
-          onEdit={setEditingSnippet}
+          onEdit={editSnippet}
           onDelete={deleteSnippet}
         />
       </div>
     </div>
   );
-};
+}
 
 export default App;
