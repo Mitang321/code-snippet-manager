@@ -7,6 +7,10 @@ import "./SnippetList.css";
 const SnippetList = () => {
   const [snippets, setSnippets] = useState([]);
   const [popup, setPopup] = useState(null);
+  const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [snippetsPerPage] = useState(4);
+  const [filteredSnippets, setFilteredSnippets] = useState([]);
 
   useEffect(() => {
     const fetchFiles = async () => {
@@ -15,7 +19,7 @@ const SnippetList = () => {
           "https://api.github.com/repos/Mitang321/snippets/contents",
           {
             headers: {
-              Authorization: `process.env.REACT_APP_GITHUB_TOKEN;`,
+              Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
             },
           }
         );
@@ -56,6 +60,22 @@ const SnippetList = () => {
     }
   }, [popup]);
 
+  useEffect(() => {
+    setFilteredSnippets(
+      snippets.filter((snippet) =>
+        snippet.title.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+  }, [search, snippets]);
+
+  const indexOfLastSnippet = currentPage * snippetsPerPage;
+  const indexOfFirstSnippet = indexOfLastSnippet - snippetsPerPage;
+  const currentSnippets = filteredSnippets.slice(
+    indexOfFirstSnippet,
+    indexOfLastSnippet
+  );
+  const totalPages = Math.ceil(filteredSnippets.length / snippetsPerPage);
+
   const handleCopy = (code) => {
     if (navigator.clipboard) {
       navigator.clipboard
@@ -85,9 +105,20 @@ const SnippetList = () => {
     setPopup(null);
   };
 
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="snippet-list">
-      {snippets.map((snippet) => (
+      <input
+        type="text"
+        placeholder="Search snippets..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="search-bar"
+      />
+      {currentSnippets.map((snippet) => (
         <div key={snippet.title} className="snippet-item">
           <div className="snippet-title" onClick={() => openPopup(snippet)}>
             <h3>{snippet.title}</h3>
@@ -116,6 +147,19 @@ const SnippetList = () => {
           </div>
         </div>
       )}
+      <div className="pagination">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index + 1}
+            className={`pagination-button ${
+              currentPage === index + 1 ? "active" : ""
+            }`}
+            onClick={() => handlePageChange(index + 1)}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

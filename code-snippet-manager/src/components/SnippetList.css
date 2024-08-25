@@ -140,3 +140,57 @@ pre {
   font-family: "Source Code Pro", monospace;
   border: none;
 }
+.search-bar {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  font-size: 16px;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-bar:focus {
+  border-color: #61dafb;
+  outline: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+.search-bar-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.pagination {
+  margin-top: 20px;
+}
+
+.pagination-button {
+  background-color: #61dafb;
+  border: none;
+  border-radius: 5px;
+  color: #282c34;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin: 0 5px;
+}
+
+.pagination-button:hover {
+  background-color: #21a1f1;
+  transform: scale(1.02);
+}
+
+.pagination-button.active {
+  background-color: #21a1f1;
+  color: #fff;
+}
