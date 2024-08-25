@@ -25,6 +25,9 @@ const SnippetForm = ({ onSubmit, currentSnippet, githubToken }) => {
 
   return (
     <form onSubmit={handleSubmit} className="snippet-form">
+      <h2 className="form-title">
+        {currentSnippet ? "Update Snippet" : "Add Snippet"}
+      </h2>
       <div className="form-group">
         <label htmlFor="title">Title</label>
         <input
