@@ -11,6 +11,7 @@ const SnippetList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [snippetsPerPage] = useState(4);
   const [filteredSnippets, setFilteredSnippets] = useState([]);
+  const [favorites, setFavorites] = useState({});
 
   useEffect(() => {
     const fetchFiles = async () => {
@@ -109,6 +110,13 @@ const SnippetList = () => {
     setCurrentPage(pageNumber);
   };
 
+  const toggleFavorite = (title) => {
+    setFavorites((prevFavorites) => ({
+      ...prevFavorites,
+      [title]: !prevFavorites[title],
+    }));
+  };
+
   return (
     <div className="snippet-list">
       <input
@@ -120,8 +128,16 @@ const SnippetList = () => {
       />
       {currentSnippets.map((snippet) => (
         <div key={snippet.title} className="snippet-item">
-          <div className="snippet-title" onClick={() => openPopup(snippet)}>
-            <h3>{snippet.title}</h3>
+          <div className="snippet-title">
+            <h3 onClick={() => openPopup(snippet)}>{snippet.title}</h3>
+            <button
+              className={`favorite-button ${
+                favorites[snippet.title] ? "favorited" : ""
+              }`}
+              onClick={() => toggleFavorite(snippet.title)}
+            >
+              ★
+            </button>
           </div>
         </div>
       ))}
