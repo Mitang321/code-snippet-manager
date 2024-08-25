@@ -1,0 +1,45 @@
+.snippet-list {
+  padding: 0;
+  margin: 0;
+}
+
+.snippet-item {
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.snippet-title h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.snippet-content {
+  margin-top: 10px;
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.snippet-actions {
+  margin-top: 10px;
+}
+
+.snippet-actions button {
+  margin-right: 10px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.snippet-actions button:hover {
+  background-color: #0056b3;
+}

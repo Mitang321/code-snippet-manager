@@ -1,31 +1,44 @@
-.App {
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.container {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
 }
 
-form {
-  margin-bottom: 20px;
+.header {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #282c34;
+  color: #ffffff;
+  border-radius: 8px;
 }
 
-input,
-textarea {
-  display: block;
-  width: 100%;
-  margin-bottom: 10px;
+.header h1 {
+  margin: 0;
+  font-size: 2.5rem;
 }
 
-button {
-  margin-right: 10px;
+.header p {
+  font-size: 1.2rem;
+  margin-top: 10px;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+.form-section,
+.list-section {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 }
 
-li {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 10px;
+.list-section {
+  margin-top: 40px;
 }

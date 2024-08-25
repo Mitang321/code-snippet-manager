@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import SnippetForm from "./components/SnippetForm";
 import SnippetList from "./components/SnippetList";
-import { Container, Row, Col } from "reactstrap";
 import "./App.css";
 
 const App = () => {
@@ -26,23 +25,26 @@ const App = () => {
   };
 
   return (
-    <Container className="my-4">
-      <Row>
-        <Col>
-          <h1 className="text-center mb-4">Code Snippet Manager</h1>
-          <SnippetForm
-            addSnippet={addSnippet}
-            editSnippet={editSnippet}
-            currentSnippet={editingSnippet}
-          />
-          <SnippetList
-            snippets={snippets}
-            onEdit={setEditingSnippet}
-            onDelete={deleteSnippet}
-          />
-        </Col>
-      </Row>
-    </Container>
+    <div className="container">
+      <header className="header">
+        <h1>Code Snippet Manager</h1>
+        <p>Manage and organize your code snippets with ease.</p>
+      </header>
+      <div className="form-section">
+        <SnippetForm
+          addSnippet={addSnippet}
+          editSnippet={editSnippet}
+          currentSnippet={editingSnippet}
+        />
+      </div>
+      <div className="list-section">
+        <SnippetList
+          snippets={snippets}
+          onEdit={setEditingSnippet}
+          onDelete={deleteSnippet}
+        />
+      </div>
+    </div>
   );
 };
 

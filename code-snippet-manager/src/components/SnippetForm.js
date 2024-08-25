@@ -19,7 +19,7 @@ const SnippetForm = ({ addSnippet, editSnippet, currentSnippet }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit} className="mb-4">
+    <Form onSubmit={handleSubmit} className="p-4 border rounded bg-light">
       <FormGroup>
         <Label for="title">Snippet Title</Label>
         <Input
