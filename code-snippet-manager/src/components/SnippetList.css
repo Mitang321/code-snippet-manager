@@ -10,6 +10,7 @@
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  position: relative;
 }
 
 .snippet-title h3 {
@@ -24,36 +25,11 @@
   padding: 10px;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: none;
 }
 
-.snippet-actions {
-  margin-top: 10px;
-}
-
-.snippet-actions button {
-  margin-right: 10px;
-  background-color: #007bff;
-  color: #ffffff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.snippet-actions button:hover {
-  background-color: #0056b3;
-}
-.snippet-category {
-  font-size: 0.9rem;
-  color: #666;
-  margin-top: 5px;
-}
-
-.snippet-content {
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-radius: 8px;
-  position: relative;
+.snippet-content.visible {
+  display: block;
 }
 
 .copy-button {
@@ -76,6 +52,27 @@
 
 .snippet-actions {
   margin-top: 10px;
+}
+
+.snippet-actions button {
+  margin-right: 10px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.snippet-actions button:hover {
+  background-color: #0056b3;
+}
+
+.snippet-category {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 5px;
 }
 
 .snippet-title {

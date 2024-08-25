@@ -1,51 +1,31 @@
 import React, { useState } from "react";
 import SnippetForm from "./components/SnippetForm";
 import SnippetList from "./components/SnippetList";
+import { saveSnippetToGitHub } from "./utils/github";
 import "./App.css";
 
-function App() {
+const App = () => {
   const [snippets, setSnippets] = useState([]);
-  const [currentSnippet, setCurrentSnippet] = useState(null);
+  const githubToken = process.env.REACT_APP_GITHUB_TOKEN;
 
-  const addSnippet = (snippet) => {
-    if (currentSnippet) {
-      setSnippets(
-        snippets.map((s) =>
-          s.id === currentSnippet.id ? { ...snippet, id: currentSnippet.id } : s
-        )
-      );
-      setCurrentSnippet(null);
-    } else {
-      setSnippets([...snippets, { ...snippet, id: Date.now() }]);
+  const handleAddSnippet = async (snippet) => {
+    try {
+      await saveSnippetToGitHub(snippet, githubToken);
+
+      setSnippets([...snippets, snippet]);
+    } catch (error) {
+      console.error("Failed to save snippet:", error);
+      alert("Failed to save snippet. Please try again.");
     }
   };
 
-  const editSnippet = (snippet) => {
-    setCurrentSnippet(snippet);
-  };
-
-  const deleteSnippet = (id) => {
-    setSnippets(snippets.filter((s) => s.id !== id));
-  };
-
   return (
-    <div className="container">
-      <header className="header">
-        <h1>Code Snippet Manager</h1>
-        <p>Organize your code snippets efficiently.</p>
-      </header>
-      <div className="form-section">
-        <SnippetForm onSubmit={addSnippet} currentSnippet={currentSnippet} />
-      </div>
-      <div className="list-section">
-        <SnippetList
-          snippets={snippets}
-          onEdit={editSnippet}
-          onDelete={deleteSnippet}
-        />
-      </div>
+    <div className="App">
+      <h1>Code Snippet Manager</h1>
+      <SnippetForm onSubmit={handleAddSnippet} githubToken={githubToken} />
+      <SnippetList snippets={snippets} />
     </div>
   );
-}
+};
 
 export default App;

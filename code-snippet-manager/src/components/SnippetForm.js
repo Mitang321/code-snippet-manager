@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./SnippetForm.css";
 
-const SnippetForm = ({ onSubmit, currentSnippet }) => {
+const SnippetForm = ({ onSubmit, currentSnippet, githubToken }) => {
   const [title, setTitle] = useState("");
   const [code, setCode] = useState("");
   const [category, setCategory] = useState("");
@@ -14,9 +14,10 @@ const SnippetForm = ({ onSubmit, currentSnippet }) => {
     }
   }, [currentSnippet]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit({ title, code, category });
+    const snippet = { title, code, category };
+    await onSubmit(snippet, githubToken);
     setTitle("");
     setCode("");
     setCategory("");
@@ -32,6 +33,7 @@ const SnippetForm = ({ onSubmit, currentSnippet }) => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
+          placeholder="Enter snippet title"
         />
       </div>
       <div className="form-group">
@@ -53,6 +55,7 @@ const SnippetForm = ({ onSubmit, currentSnippet }) => {
           onChange={(e) => setCode(e.target.value)}
           rows="10"
           required
+          placeholder="Enter your code here"
         />
       </div>
       <button type="submit" className="submit-button">
