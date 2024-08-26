@@ -2,6 +2,10 @@
 
 A web application that allows users to view, search, and manage code snippets. Snippets are stored in a GitHub repository and fetched dynamically. The application also supports creating new snippets directly from the UI.
 
+## Live Preview
+
+[Live Preview](https://code-snippet-manager-chi.vercel.app/)
+
 ## Features
 
 - **Create Snippets**: Users can create new code snippets directly from the application and save them to the GitHub repository.
